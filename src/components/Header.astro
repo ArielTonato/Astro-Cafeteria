@@ -1,0 +1,42 @@
+---
+import NavLink from "./NavLink.astro";
+
+interface Props{
+    paginaActual: string;
+}
+
+const {paginaActual} = Astro.props;
+
+/**
+ * Como puedo hacer para que dependiendo de la pagina en la que me encuentre el enlace del header cambie de color
+ *  y se muestre activo
+ *  5.- Recoger el nombre 
+ *  6.- Hacer un condicional y que me retorne el NavLink activo
+ * 
+ */
+---
+
+<div class="relative">
+    <div class="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap-24">
+        <div class="w-[60%] m-auto md:w-[250px] lg:m-0">
+            <img src="/assets/logo.svg" alt="" />
+        </div>
+        <nav
+            class="flex flex-col items-center gap-4 md:flex-row md:justify-center"
+        >
+        <NavLink link="/" activo={paginaActual === "/"}>Inicio</NavLink>
+        <NavLink link="/nosotros" activo={paginaActual === "/nosotros"}>Nosotros</NavLink>
+        <NavLink link="/proceso" activo={paginaActual === "/proceso"}>Proceso</NavLink>
+        <NavLink link="/menu" activo={paginaActual === "/menu"}>menú</NavLink>
+        <NavLink link="/galeria" activo={paginaActual === "/galeria"}>galería</NavLink>
+        <NavLink link="/contacto" activo={paginaActual === "/contacto"}>contacto</NavLink>
+        </nav>
+    </div>
+    <div class="px-4">
+        <h1
+            class="uppercase text-blanco text-center text-[40px] leading-normal font-bold mt-16 mb-5 md:mb-20 md:mt-[100px] lg:mb-48"
+        >
+            <slot/>
+        </h1>
+    </div>
+</div>

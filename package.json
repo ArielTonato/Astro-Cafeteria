@@ -1,0 +1,25 @@
+{
+  "name": "cafe",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.6",
+    "@astrojs/tailwind": "^5.1.0",
+    "@cloudinary/url-gen": "^1.18.0",
+    "astro": "^4.4.9",
+    "cloudinary": "^2.0.2",
+    "postcss-import": "^16.0.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "postcss-nesting": "^12.0.4"
+  }
+}

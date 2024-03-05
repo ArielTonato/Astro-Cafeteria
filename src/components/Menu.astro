@@ -1,0 +1,114 @@
+---
+
+---
+
+<section class="el-menu py-20">
+    <h2 class="text-blanco uppercase text-center text-3xl font-bold mb-14"><span class="text-[18px] block">Nuestro Delicioso</span>
+        Menu</h2>
+    <div class="contenedor md:flex md:gap-10 md:justify-evenly">
+        <section class="menu cafe">
+            <h3>Café</h3>
+            <ul>
+                <li>
+                    <p class="nom">Café Latte <span>Café Espresso con leche caliente evaporada</span> </p>
+                    <p class="precio">$25</p>
+                </li>
+                <li>
+                    <p class="nom">Café Mocha <span>Espresso con crema batida</span> </p>
+                    <p class="precio">$30</p>
+                </li>
+                <li>
+                    <p class="nom">Café Americano <span>Café Negro</span> </p>
+                    <p class="precio">$30</p>
+                </li>
+                <li>
+                    <p class="nom">Capuccino<span>Espresso con una capa suave de espuma</span> </p>
+                    <p class="precio">$25</p>
+                </li>
+                <li>
+                    <p class="nom">Café Mocha Frio<span>Espresso, dulce con mocha y leche.</span> </p>
+                    <p class="precio">$29</p>
+                </li>
+                <li>
+                    <p class="nom">Mocha Frio Quemado<span>Espresso, hielo, con azucar quemada y mantequilla.</span> </p>
+                    <p class="precio">$35</p>
+                </li>
+                <li>
+                    <p class="nom">Latte con Caramelo<span>Espresso, leche y caramelo.</span> </p>
+                    <p class="precio">$39</p>
+                </li>
+            </ul>
+        </section>
+        <section class="menu comida">
+            <h3>comida</h3>
+            <ul>
+                <li>
+                    <p class="nom">Baguette de Pollo <span>Delicioso Baguette con pollo a la plancha</span> </p>
+                    <p class="precio">$45</p>
+                </li>
+                <li>
+                    <p class="nom">Baguette Pollo y Queso <span>Baguette combinado con Pollo y Queso Manchego</span> </p>
+                    <p class="precio">$50</p>
+                </li>
+                <li>
+                    <p class="nom">Baguette con Tocino<span>Baguette con especias y verduras, además de tocino</span> </p>
+                    <p class="precio">$50</p>
+                </li>
+                <li>
+                    <p class="nom">Baguette de Jamón<span>Delicioso Baguette con Jamón y Especias</span> </p>
+                    <p class="precio">$65</p>
+                </li>
+                <li>
+                    <p class="nom">Baguette con Jamón, Queso y Tocino<span>El especial de la casa</span> </p>
+                    <p class="precio">$69</p>
+                </li>
+                <li>
+                    <p class="nom">Sandwich de Pollo<span>Delicioso sandwich con Pollo y especies</span> </p>
+                    <p class="precio">$65</p>
+                </li>
+                <li>
+                    <p class="nom">Sandwich de Jamón y queso<span>Queso Amarillo con Jamón y Queso</span> </p>
+                    <p class="precio">$59</p>
+                </li>
+            </ul>
+        </section>
+    </div>
+</section>
+
+<style>
+    .el-menu{
+        background: url(/assets/menu_arriba.svg), url(/assets/menu_abajo.svg), linear-gradient(to top, #5E311E, #5E311E);
+        background-repeat: no-repeat;
+        background-position: center 50px, center 97%, 100%;
+        background-size: 200%;
+        padding: 150px 10px 200px 10px;
+        @apply md:bg-p2 md:bg-contain md:pt-[170px] md:pb-[200px] 
+    }
+    @media (min-width: 1024px){
+        .el-menu{
+            background-size: 50%, 50%, 100%;
+            background-position: center 50px, center 97%, 100%;
+        }
+    }
+    .menu{
+        @apply text-blanco
+    }
+    h3{
+        @apply text-4xl uppercase font-bold text-center my-7 text-blanco;
+    }
+    ul{
+        @apply space-y-5
+    }
+    .nom:not(span){
+        @apply text-xl;
+    }
+    .nom span{
+        @apply text-xl block text-secundario mt-1;
+    }
+    li{
+        @apply flex justify-between gap-1;
+    }
+    .precio{
+        @apply text-2xl font-bold;
+    }
+</style>

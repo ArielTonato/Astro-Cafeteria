@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro'
+import TitleCoffee from '../components/TitleCoffee.astro'
+---
+
+<Layout title='Nosotros' titleHeader='Una nueva experencia cada día' bg='https://res.cloudinary.com/aridev21/image/upload/f_auto,q_auto/v1/img/header_nosotros_fvgrab' paginaActual='/nosotros'>
+    <main class=" up contenedor up bg-blanco text-center py-14 px-5 md:p-24">
+        <TitleCoffee cont1='conoce mas' cont2='sobre nosotros' />
+        <div class="lg:flex lg:items-center lg:gap-10">
+            <div class="mt-5">
+                <img src="https://res.cloudinary.com/aridev21/image/upload/f_auto,q_auto/v1/img/nosotros_sidebar_qbsacj" alt="img" class="-rotate-6 border-[30px] border-solid border-blanco shadow-md">
+            </div>
+            <div class="mt-16 text-justify px-3">
+                <p class="leading-normal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quasi perspiciatis quam libero aliquam incidunt alias ea, facilis quo quisquam.</p>
+    
+                <blockquote class="my-6 p-5 text-xl border-l-[5px] border-solid border-primario">
+                    Excelente Sabor
+                </blockquote>
+        
+                <p class="leading-normal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quasi perspiciatis quam libero aliquam incidunt alias ea, facilis quo quisquam.</p>
+            </div>
+        </div>
+    </main>
+</Layout>

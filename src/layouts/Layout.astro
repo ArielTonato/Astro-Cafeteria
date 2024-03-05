@@ -1,0 +1,80 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
+/**
+ *  3.- Recoger el nombre
+ *  4.- y volver a pasar al header
+ */
+interface Props {
+	title: string;
+	bg: string;
+	titleHeader: string;
+	className?: string;
+	paginaActual: string;
+}
+
+const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<ViewTransitions />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bona+Nova&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="font-secundaria bg-cafeClaro">
+		<header class={className} style=`background-image: url(${fondo});`>
+			<Header paginaActual={paginaActual}>{titleHeader}</Header>
+		</header>
+		<slot />
+		<Footer />
+	</body>
+</html>
+<style is:global>
+	header::before {
+		@apply content-['']  absolute inset-0 bg-negro bg-opacity-50;
+	}
+	.contenedor {
+		width: 90%;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.up {
+		@apply bg-blanco py-12 md:p-[110px] px-[30px]  text-center md:mt-[-100px] md:relative;
+	}
+
+	header {
+		@apply bg-no-repeat relative py-12;
+	}
+	.fondo-menu {
+		background-position: 80%;
+		background-repeat: no-repeat;
+	}
+
+	.fondo-galeria{
+		background-position: center top;
+	}
+
+	.fondo-contacto{
+		background-position: center center;
+	}
+
+	@media (min-width: 768px) {
+		.fondo-menu {
+			background-position: 50%;
+			background-repeat: no-repeat;
+		}
+	}
+</style>

@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TitleCoffee from "../components/TitleCoffee.astro";
+import Desserts from "../components/Desserts.astro";
+import Gallery from "../components/Gallery.astro";
+import Menu from "../components/Menu.astro";
+import Testimony from "../components/Testimony.astro";
+
+
+//bg=''
+---
+
+<Layout
+	title="Cafetería"
+	bg="https://res.cloudinary.com/aridev21/image/upload/f_auto,q_auto/v1/img/header_inicio_fpx7l8"
+	titleHeader="Disfruta una deliciosa taza de café"
+	paginaActual="/"
+>
+	<main
+		class=" contenedor up"
+	>
+		<TitleCoffee cont1="Conoce Más" cont2="Sobre nosotros" />
+		<p class="my-12">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ab
+			nulla, officiis sapiente enim asperiores! Architecto dolorum debitis
+			velit et?Lorem ipsum dolor sit amet consectetur adipisicing elit.
+			Ipsum perspiciatis doloremque earum impedit totam dolorum corporis
+			commodi. Laudantium doloribus sed, cupiditate voluptate, pariatur
+			aspernatur perspiciatis praesentium eligendi voluptatum cum minima.
+		</p>
+		<Desserts />
+		<Gallery />
+	</main>
+	<Menu />
+	<Testimony />
+</Layout>
+

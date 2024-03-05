@@ -1,0 +1,63 @@
+---
+import Layout from "@layout/Layout.astro"
+import TitleCoffee from "@components/TitleCoffee.astro"
+
+const currentPath ="/"+Astro.self.name;
+/**
+ *  1.- Tengo el nombre de la pagina actual
+ *  2.- Pasar el nombre a layout
+ */
+console.log(currentPath);
+---
+<Layout bg="https://res.cloudinary.com/aridev21/image/upload/f_auto,q_auto/v1/img/header_contacto_acfjl8" title="Contacto" titleHeader="Disfruta una deliciosa taza de cafe" className="fondo-contacto" paginaActual={currentPath}>
+    <main class="contenedor up">
+        <TitleCoffee cont1="Reserva tu" cont2="mesa" />
+        <section class="my-14 text-left md:grid md:grid-cols-2 md:bg-[url(https://res.cloudinary.com/aridev21/image/upload/f_auto,q_auto/v1/img/granos_cafe_odwjm6)] md:bg-no-repeat md:bg-[length:40%] md:bg-p7">
+            <form action="" class="w-full">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre"  placeholder="Tu nombre" required>
+                </div>
+                <div>
+                    <label for="email">email:</label>
+                    <input type="email" id="email"  placeholder="Tu email" required>
+                </div>
+
+                <div>
+                    <label for="numero">Número de personas:</label>
+                    <select name="" id="numero">
+                        <option value="" selected disabled>--Seleccione una opcion--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" required>
+                </div>
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+</Layout>
+<style>
+    input, select{
+        @apply w-full p-2 border-[3px] border-secundario border-solid rounded-md mb-5;
+    }
+    input[type="date"]{
+        @apply mb-0
+    }
+    label{
+        @apply block uppercase font-bold;
+    }
+    button{
+        @apply bg-primario text-blanco py-2 px-4 rounded-md mt-4 w-full hover:bg-secundario ease-in-out duration-300;
+    }
+</style>
+

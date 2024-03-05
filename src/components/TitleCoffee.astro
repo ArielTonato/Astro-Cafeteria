@@ -1,0 +1,16 @@
+---
+interface Props {
+    cont1: string;
+    cont2: string;
+}
+
+const { cont1, cont2 } = Astro.props;
+---
+
+<h2 class="uppercase  text-3xl text-primario font-bold"><span class="block text-[18px] text-secundario">{cont1}</span>{cont2}</h2>
+
+<style>
+    h2::after{
+        @apply content-[''] block w-[100px] h-[100px] bg-[url(/assets/cafe.svg)] m-auto bg-[100px];
+    }
+</style>
