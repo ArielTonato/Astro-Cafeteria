@@ -7,29 +7,22 @@ interface Props{
 
 const {paginaActual} = Astro.props;
 
-/**
- * Como puedo hacer para que dependiendo de la pagina en la que me encuentre el enlace del header cambie de color
- *  y se muestre activo
- *  5.- Recoger el nombre 
- *  6.- Hacer un condicional y que me retorne el NavLink activo
- * 
- */
 ---
 
 <div class="relative">
     <div class="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap-24">
         <div class="w-[60%] m-auto md:w-[250px] lg:m-0">
-            <img src="/assets/logo.svg" alt="" />
+            <img src="/Astro-Cafeteria/assets/logo.svg" alt="" />
         </div>
         <nav
             class="flex flex-col items-center gap-4 md:flex-row md:justify-center"
         >
-        <NavLink link="/" activo={paginaActual === "/"}>Inicio</NavLink>
-        <NavLink link="/nosotros" activo={paginaActual === "/nosotros"}>Nosotros</NavLink>
-        <NavLink link="/proceso" activo={paginaActual === "/proceso"}>Proceso</NavLink>
-        <NavLink link="/menu" activo={paginaActual === "/menu"}>menú</NavLink>
-        <NavLink link="/galeria" activo={paginaActual === "/galeria"}>galería</NavLink>
-        <NavLink link="/contacto" activo={paginaActual === "/contacto"}>contacto</NavLink>
+        <NavLink link="/Astro-Cafeteria" activo={paginaActual === "/"}>Inicio</NavLink>
+        <NavLink link="/Astro-Cafeteria/nosotros" activo={paginaActual === "/nosotros"}>Nosotros</NavLink>
+        <NavLink link="/Astro-Cafeteria/proceso" activo={paginaActual === "/proceso"}>Proceso</NavLink>
+        <NavLink link="/Astro-Cafeteria/menu" activo={paginaActual === "/menu"}>menú</NavLink>
+        <NavLink link="/Astro-Cafeteria/galeria" activo={paginaActual === "/galeria"}>galería</NavLink>
+        <NavLink link="/Astro-Cafeteria/contacto" activo={paginaActual === "/contacto"}>contacto</NavLink>
         </nav>
     </div>
     <div class="px-4">
