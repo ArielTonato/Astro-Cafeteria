@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
+import ScrollToTop from "../components/ScrollToTop.astro";
 /**
  * 3.- Recoger el nombre
  * 4.- y volver a pasar al header
@@ -38,6 +39,7 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
             <Header paginaActual={paginaActual}>{titleHeader}</Header>
         </header>
         <slot />
+        <ScrollToTop />
         <Footer />
     </body>
 </html>

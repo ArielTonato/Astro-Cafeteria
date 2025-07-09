@@ -1,0 +1,73 @@
+---
+// Componente para volver al inicio de la página - solo móvil
+---
+
+<button
+  id="scrollToTop"
+  class="fixed bottom-8 right-8 bg-negro text-blanco p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-cafeMedio z-50 md:hidden"
+  aria-label="Volver arriba"
+>
+  <svg
+    class="w-6 h-6"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M5 10l7-7m0 0l7 7m-7-7v18"
+    ></path>
+  </svg>
+</button>
+
+<script>
+  function initScrollToTop(): void {
+    const scrollToTopButton = document.getElementById('scrollToTop') as HTMLButtonElement;
+    
+    if (!scrollToTopButton) {
+      throw new Error('Scroll to top button not found');
+    }
+
+    // Función para mostrar/ocultar el botón
+    function toggleScrollButton(): void {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Mostrar el botón cuando el usuario esté cerca del final de la página
+      const showButton = scrollPosition > windowHeight * 0.5;
+      
+      if (showButton) {
+        scrollToTopButton.classList.remove('opacity-0', 'invisible');
+        scrollToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        scrollToTopButton.classList.add('opacity-0', 'invisible');
+        scrollToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    }
+
+    // Función para volver al inicio
+    function scrollToTop(): void {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Event listeners
+    window.addEventListener('scroll', toggleScrollButton);
+    scrollToTopButton.addEventListener('click', scrollToTop);
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollToTop);
+  } else {
+    initScrollToTop();
+  }
+
+  // Reinicializar cuando Astro navegue a una nueva página
+  document.addEventListener('astro:page-load', initScrollToTop);
+</script> 
