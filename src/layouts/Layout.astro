@@ -53,6 +53,17 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
         if (!navbar || !header) return;
 
         function handleScroll() {
+            // Solo aplicar sticky en pantallas grandes (768px y superior)
+            if (window.innerWidth < 768) {
+                // En móviles, remover sticky si está activo
+                if (navbar && navbar.classList.contains('navbar-sticky')) {
+                    navbar.classList.remove('navbar-sticky');
+                    document.body.classList.remove('navbar-is-sticky');
+                    document.body.style.paddingTop = '';
+                }
+                return;
+            }
+
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const headerHeight = header?.offsetHeight || 0;
             
@@ -89,6 +100,16 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
         // Guardar referencia al handler actual
         currentScrollHandler = throttledHandleScroll;
         window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+        
+        // Agregar listener para cambios de tamaño de ventana
+        window.addEventListener('resize', () => {
+            // Si cambiamos a móvil, remover sticky
+            if (window.innerWidth < 768 && navbar) {
+                navbar.classList.remove('navbar-sticky');
+                document.body.classList.remove('navbar-is-sticky');
+                document.body.style.paddingTop = '';
+            }
+        });
     }
 
     // Función para inicializar cuando el DOM cambie (transiciones de Astro)
