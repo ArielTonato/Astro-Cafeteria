@@ -8,7 +8,7 @@ const { link, activo } = Astro.props;
 ---
 
 <a href={link} class:list={[
-    "text-blanco text-xl uppercase hover:text-secundario font-bold",
+    "text-blanco text-[1.1rem] uppercase hover:text-secundario font-bold",
     {
         "text-secundario hover:text-blanco": activo,
         "text-blanco": !activo
