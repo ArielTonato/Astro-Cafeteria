@@ -1,38 +1,33 @@
 ---
 import TitleCoffee from "../components/TitleCoffee.astro";
-import { v2 as cloudinary } from "cloudinary";
 
-cloudinary.config({
-    cloud_name: "aridev21",
-    api_key: "652162893854654",
-    api_secret: "ivnzP6beTyhgbiiQHC8Ek5VqpTc",
-    secure: true,
-});
-
-let imgs = cloudinary.api.resources({
-    type: "upload",
-    prefix: "img/galeria",
-    max_results: 10,
-    context: true,
-    tags: true,
-});
+let imgsLinks: string[] = [
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017845/img/galeria/galeria_01_qaxsqt',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017844/img/galeria/galeria_02_zswlo3',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017845/img/galeria/galeria_03_cr8osp',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017844/img/galeria/galeria_04_zejf2p',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017844/img/galeria/galeria_05_eii06z',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017845/img/galeria/galeria_06_wmi2hv',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017854/img/galeria/galeria_07_i5ocws',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017844/img/galeria/galeria_08_tvjsxp',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017845/img/galeria/galeria_09_tzbcbd',
+    'https://res.cloudinary.com/aridev21/image/upload/v1752017854/img/galeria/galeria_07_i5ocws'
+];
 ---
 
 <section class="contenedor py-[50px]">
     <TitleCoffee cont1="Vive la" cont2="experiencia" />
     <div class="mt-10 grid grid-cols-2 gap-2 lg:grid-cols-4">
         {
-            imgs.then((res) => {
-                return res.resources.map((img: any) => (
-                    <picture>
-                        <img 
-                            src={img.url}
+            imgsLinks.map((img) => (
+                <picture>
+                    <img 
+                        src={img}
                             alt="imagen galeria"
                             class="imagen w-[300px] h-[300px] object-cover"
                         />
                     </picture>
-                ));
-            })
+                ))
         }
     </div>
 </section>
