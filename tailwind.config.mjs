@@ -29,13 +29,3 @@ export default {
 		 
 	],
 }
-/**
- * ---Para el proyecto---
- * configurar las imagenes con cloudinary
- *  1.- Crear el componente de las imagenes de cloudinary [X]
- *  2.- Probar el funcionamiento de las imagenes []
- * ---Para TaiwlindCSS---
- * 1.- Traer las fuentes de google fonts []
- * 2.- Traer los colores de la paleta de colores [x]
- * 3.- Establecer otras variables de configuración []
- */
