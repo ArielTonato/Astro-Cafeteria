@@ -9,16 +9,7 @@ const { paginaActual } = Astro.props;
 ---
 
 <div class="relative">
-    <div class="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap-24">
-        <div class="w-[50%] m-auto md:w-[160px] lg:m-0">
-            <img src="/Astro-Cafeteria/assets/logo.svg" alt="" />
-        </div>
-        <nav
-            class="flex flex-col items-center gap-4 md:flex-row md:justify-center"
-        >
-            <NavBar paginaActual={paginaActual} />
-        </nav>
-    </div>
+    <NavBar paginaActual={paginaActual} />
     <div class="px-4">
         <h1
             class="uppercase text-blanco text-center text-[40px] leading-normal font-bold mt-16 mb-5 md:mb-20 md:mt-[100px] lg:mb-48"

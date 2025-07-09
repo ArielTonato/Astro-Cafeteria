@@ -41,6 +41,73 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
 		<Footer />
 	</body>
 </html>
+
+<script>
+	// Variables globales para el navbar sticky
+	let currentScrollHandler: (() => void) | null = null;
+
+	// Script global para manejar el navbar sticky
+	function initStickyNavbar() {
+		const navbar = document.querySelector('.navbar');
+		const header = document.querySelector('header');
+		if (!navbar || !header) return;
+
+		function handleScroll() {
+			const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+			const headerHeight = header?.offsetHeight || 0;
+			
+			// El navbar sticky aparece solo cuando el header ya no está visible
+			if (scrollTop >= headerHeight - 100 && navbar) {
+				navbar.classList.add('navbar-sticky');
+				document.body.classList.add('navbar-is-sticky');
+			} else if (navbar) {
+				navbar.classList.remove('navbar-sticky');
+				document.body.classList.remove('navbar-is-sticky');
+			}
+		}
+
+		// Throttle para mejorar performance
+		let ticking = false;
+		function throttledHandleScroll() {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					handleScroll();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}
+
+		// Guardar referencia al handler actual
+		currentScrollHandler = throttledHandleScroll;
+		window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+	}
+
+	// Función para inicializar cuando el DOM cambie (transiciones de Astro)
+	function setupStickyNavbar() {
+		// Remover event listeners existentes si los hay
+		if (currentScrollHandler) {
+			window.removeEventListener('scroll', currentScrollHandler);
+		}
+		
+		// Inicializar después de un pequeño delay para asegurar que el DOM esté listo
+		setTimeout(() => {
+			initStickyNavbar();
+		}, 100);
+	}
+
+	// Inicializar cuando el DOM esté listo
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', setupStickyNavbar);
+	} else {
+		setupStickyNavbar();
+	}
+
+	// Escuchar cambios en el DOM para transiciones de Astro
+	document.addEventListener('astro:page-load', setupStickyNavbar);
+	document.addEventListener('astro:after-swap', setupStickyNavbar);
+</script>
+
 <style is:global>
 	header::before {
 		@apply content-['']  absolute inset-0 bg-negro bg-opacity-50;
@@ -71,10 +138,36 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
 		background-position: center center;
 	}
 
+	/* Estilos para el navbar sticky */
+	.navbar-sticky {
+		@apply fixed top-0 left-0 right-0 bg-primario bg-opacity-90 backdrop-blur-sm shadow-lg z-50;
+		animation: slideDown 0.3s ease-in-out;
+	}
+
+	@keyframes slideDown {
+		from {
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	/* Ajustar el contenido cuando el navbar está sticky */
+	.navbar-is-sticky header {
+		@apply pt-20;
+	}
+
 	@media (min-width: 768px) {
 		.fondo-menu {
 			background-position: 50%;
 			background-repeat: no-repeat;
+		}
+		
+		.navbar-sticky {
+			@apply px-8;
 		}
 	}
 </style>
