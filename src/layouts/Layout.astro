@@ -3,15 +3,15 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
 /**
- *  3.- Recoger el nombre
- *  4.- y volver a pasar al header
+ * 3.- Recoger el nombre
+ * 4.- y volver a pasar al header
  */
 interface Props {
-	title: string;
-	bg: string;
-	titleHeader: string;
-	className?: string;
-	paginaActual: string;
+    title: string;
+    bg: string;
+    titleHeader: string;
+    className?: string;
+    paginaActual: string;
 }
 
 const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
@@ -20,154 +20,173 @@ const { title, bg: fondo, titleHeader, className, paginaActual } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<ViewTransitions />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Bona+Nova&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;700&display=swap"
-			rel="stylesheet"
-		/>
-		<title>{title}</title>
-	</head>
-	<body class="font-secundaria bg-cafeClaro">
-		<header class={className} style=`background-image: url(${fondo});`>
-			<Header paginaActual={paginaActual}>{titleHeader}</Header>
-		</header>
-		<slot />
-		<Footer />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <ViewTransitions />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bona+Nova&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>{title}</title>
+    </head>
+    <body class="font-secundaria bg-cafeClaro">
+        <header class={className} style=`background-image: url(${fondo});`>
+            <Header paginaActual={paginaActual}>{titleHeader}</Header>
+        </header>
+        <slot />
+        <Footer />
+    </body>
 </html>
 
 <script>
-	// Variables globales para el navbar sticky
-	let currentScrollHandler: (() => void) | null = null;
+    // Variables globales para el navbar sticky
+    let currentScrollHandler: (() => void) | null = null;
 
-	// Script global para manejar el navbar sticky
-	function initStickyNavbar() {
-		const navbar = document.querySelector('.navbar');
-		const header = document.querySelector('header');
-		if (!navbar || !header) return;
+    // Script global para manejar el navbar sticky
+    function initStickyNavbar() {
+        const navbar = document.querySelector('.navbar');
+        const header = document.querySelector('header');
+        if (!navbar || !header) return;
 
-		function handleScroll() {
-			const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-			const headerHeight = header?.offsetHeight || 0;
-			
-			// El navbar sticky aparece solo cuando el header ya no está visible
-			if (scrollTop >= headerHeight - 100 && navbar) {
-				navbar.classList.add('navbar-sticky');
-				document.body.classList.add('navbar-is-sticky');
-			} else if (navbar) {
-				navbar.classList.remove('navbar-sticky');
-				document.body.classList.remove('navbar-is-sticky');
-			}
-		}
+        function handleScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const headerHeight = header?.offsetHeight || 0;
+            
+            // El navbar sticky aparece solo cuando el header ya no está visible
+            if (scrollTop >= headerHeight - 100 && navbar) {
+                if (!navbar.classList.contains('navbar-sticky')) {
+                    navbar.classList.add('navbar-sticky');
+                    document.body.classList.add('navbar-is-sticky');
+                    // Añadir el padding-top al body igual a la altura del navbar
+                    document.body.style.paddingTop = `${(navbar as HTMLElement).offsetHeight}px`;
+                }
+            } else if (navbar) {
+                // Remover el espacio reservado cuando el navbar ya no es sticky
+                if (navbar.classList.contains('navbar-sticky')) {
+                    navbar.classList.remove('navbar-sticky');
+                    document.body.classList.remove('navbar-is-sticky');
+                    document.body.style.paddingTop = '';
+                }
+            }
+        }
 
-		// Throttle para mejorar performance
-		let ticking = false;
-		function throttledHandleScroll() {
-			if (!ticking) {
-				requestAnimationFrame(() => {
-					handleScroll();
-					ticking = false;
-				});
-				ticking = true;
-			}
-		}
+        // Throttle para mejorar performance
+        let ticking = false;
+        function throttledHandleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
 
-		// Guardar referencia al handler actual
-		currentScrollHandler = throttledHandleScroll;
-		window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-	}
+        // Guardar referencia al handler actual
+        currentScrollHandler = throttledHandleScroll;
+        window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    }
 
-	// Función para inicializar cuando el DOM cambie (transiciones de Astro)
-	function setupStickyNavbar() {
-		// Remover event listeners existentes si los hay
-		if (currentScrollHandler) {
-			window.removeEventListener('scroll', currentScrollHandler);
-		}
-		
-		// Inicializar después de un pequeño delay para asegurar que el DOM esté listo
-		setTimeout(() => {
-			initStickyNavbar();
-		}, 100);
-	}
+    // Función para inicializar cuando el DOM cambie (transiciones de Astro)
+    function setupStickyNavbar() {
+        // Remover event listeners existentes si los hay para evitar duplicados
+        if (currentScrollHandler) {
+            window.removeEventListener('scroll', currentScrollHandler);
+        }
+        
+        // Limpiar cualquier estado previo
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            navbar.classList.remove('navbar-sticky');
+        }
+        document.body.classList.remove('navbar-is-sticky');
+        document.body.style.paddingTop = '';
+        
+        // Inicializar después de un pequeño delay para asegurar que el DOM esté listo
+        // y los elementos tengan sus alturas correctas.
+        setTimeout(() => {
+            initStickyNavbar();
+        }, 100);
+    }
 
-	// Inicializar cuando el DOM esté listo
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', setupStickyNavbar);
-	} else {
-		setupStickyNavbar();
-	}
+    // Inicializar cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupStickyNavbar);
+    } else {
+        setupStickyNavbar();
+    }
 
-	// Escuchar cambios en el DOM para transiciones de Astro
-	document.addEventListener('astro:page-load', setupStickyNavbar);
-	document.addEventListener('astro:after-swap', setupStickyNavbar);
+    // Escuchar cambios en el DOM para transiciones de Astro (SPA-like navigation)
+    document.addEventListener('astro:page-load', setupStickyNavbar);
+    document.addEventListener('astro:after-swap', setupStickyNavbar);
 </script>
 
 <style is:global>
-	header::before {
-		@apply content-['']  absolute inset-0 bg-negro bg-opacity-50;
-	}
-	.contenedor {
-		width: 90%;
-		max-width: 1200px;
-		margin: 0 auto;
-	}
+    header::before {
+        @apply content-['']  absolute inset-0 bg-negro bg-opacity-50;
+    }
+    .contenedor {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-	.up {
-		@apply bg-blanco py-12 md:p-[110px] px-[30px]  text-center md:mt-[-100px] md:relative;
-	}
+    .up {
+        @apply bg-blanco py-12 md:p-[110px] px-[30px]  text-center md:mt-[-100px] md:relative;
+    }
 
-	header {
-		@apply bg-no-repeat relative py-12;
-	}
-	.fondo-menu {
-		background-position: 80%;
-		background-repeat: no-repeat;
-	}
+    header {
+        @apply bg-no-repeat relative py-12;
+    }
+    .fondo-menu {
+        background-position: 80%;
+        background-repeat: no-repeat;
+    }
 
-	.fondo-galeria{
-		background-position: center top;
-	}
+    .fondo-galeria{
+        background-position: center top;
+    }
 
-	.fondo-contacto{
-		background-position: center center;
-	}
+    .fondo-contacto{
+        background-position: center center;
+    }
 
-	/* Estilos para el navbar sticky */
-	.navbar-sticky {
-		@apply fixed top-0 left-0 right-0 bg-primario bg-opacity-90 backdrop-blur-sm shadow-lg z-50;
-		animation: slideDown 0.3s ease-in-out;
-	}
+    /* Estilos para el navbar sticky */
+    .navbar-sticky {
+        @apply fixed top-0 left-0 right-0 bg-primario bg-opacity-90 backdrop-blur-sm shadow-lg z-50;
+        animation: slideDown 0.3s ease-in-out;
+    }
 
-	@keyframes slideDown {
-		from {
-			transform: translateY(-100%);
-			opacity: 0;
-		}
-		to {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
 
-	/* Ajustar el contenido cuando el navbar está sticky */
-	.navbar-is-sticky header {
-		@apply pt-20;
-	}
+    /* Ajustar el contenido cuando el navbar está sticky */
+    /* Esta regla CSS ya no es necesaria aquí si se maneja con JS,
+       ya que el padding-top se aplica directamente al body por JavaScript. */
+    /* .navbar-is-sticky header {
+        @apply pt-20;
+    } */
 
-	@media (min-width: 768px) {
-		.fondo-menu {
-			background-position: 50%;
-			background-repeat: no-repeat;
-		}
-		
-		.navbar-sticky {
-			@apply px-8;
-		}
-	}
+    @media (min-width: 768px) {
+        .fondo-menu {
+            background-position: 50%;
+            background-repeat: no-repeat;
+        }
+        
+        .navbar-sticky {
+            @apply px-8;
+        }
+    }
 </style>
